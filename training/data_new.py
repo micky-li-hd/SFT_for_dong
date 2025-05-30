@@ -34,7 +34,7 @@ class LazySupervisedMixDataset(Dataset):
 
         list_data_dict = []
         data_files = glob.glob(os.path.join(data_path, "*.tar"))
-        train_dataset = load_dataset("webdataset", data_files=data_files, split="train", num_proc=128)
+        train_dataset = load_dataset("webdataset", data_files=data_files, split="train", num_proc=8)
         train_dataset = train_dataset.map(process_sample).filter(lambda x: x is not None)
         train_dataset = train_dataset.remove_columns([
             col for col in train_dataset.column_names 

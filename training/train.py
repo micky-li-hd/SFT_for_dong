@@ -206,7 +206,7 @@ def main():
             global_step = int(os.path.basename(path).split("-")[1])
             first_epoch = global_step // num_update_steps_per_epoch
 
-            accelerator.print(f"Resuming from checkpoint {path}/unwrapped_model/pytorch_model.bin")
+            accelerator.print(f"Resuming from checkpoint {path}")
             state_dict = torch.load(f'{path}/unwrapped_model/pytorch_model.bin', map_location="cpu")
             model.load_state_dict(state_dict, strict=True)
             del state_dict
@@ -446,12 +446,13 @@ def save_checkpoint(model, processor, config, accelerator, global_step):
             save_path / "unwrapped_model",
             save_function=accelerator.save,
             state_dict=state_dict,
+            max_shard_size="99999GB",
             safe_serialization=False
         )
         json.dump({"global_step": global_step}, (save_path / "metadata.json").open("w+"))
         logger.info(f"Saved state to {save_path}")
         # Run eval and log to wandb
-        run_eval_and_log(unwrapped_model, processor, config, global_step)
+        # run_eval_and_log(unwrapped_model, processor, config, global_step)
 
 def log_grad_norm(model, accelerator, global_step):
     for name, param in model.named_parameters():
