@@ -1,0 +1,11 @@
+{"time":"2025-06-02T07:33:33.168860905Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/v-haodongli/t2isft/wandb/run-20250602_073333-afidwvvb/logs/debug-core.log"}
+{"time":"2025-06-02T07:33:33.353831732Z","level":"INFO","msg":"created new stream","id":"afidwvvb"}
+{"time":"2025-06-02T07:33:33.353865335Z","level":"INFO","msg":"stream: started","id":"afidwvvb"}
+{"time":"2025-06-02T07:33:33.35412423Z","level":"INFO","msg":"handler: started","stream_id":"afidwvvb"}
+{"time":"2025-06-02T07:33:33.3542201Z","level":"INFO","msg":"writer: Do: started","stream_id":"afidwvvb"}
+{"time":"2025-06-02T07:33:33.354221658Z","level":"INFO","msg":"sender: started","stream_id":"afidwvvb"}
+{"time":"2025-06-02T07:33:33.469618807Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-06-02T07:36:18.734372657Z","level":"INFO","msg":"stream: closing","id":"afidwvvb"}
+{"time":"2025-06-02T07:36:18.734417671Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-06-02T07:36:18.734494334Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-06-02T07:36:19.196195554Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}

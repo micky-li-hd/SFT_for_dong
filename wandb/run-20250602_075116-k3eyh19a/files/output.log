@@ -1,0 +1,83 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.02s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:45<00:00, 15.24s/it]
+总共 553 条 prompt
+
+🚀 正在处理第 1/553 条 prompt:
+Prompt: a photo of a bench
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a bench is shown. The bench has a white frame with a curved backrest and armrests. The seat and backrest are made of light-colored wood. The bench is positioned outdoors, with a tree trunk visible on the right side. The tree trunk has a rough, textured bark. The ground is covered with dry leaves, indicating a natural setting. The bench appears to be in good condition, with some wear visible on the seat. The overall style of the image is natural and outdoorsy, capturing a peaceful moment in a forested area.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 2/553 条 prompt:
+Prompt: a photo of a cow
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a cow. The cow is black and white with a pink nose and large, expressive eyes. It has a brown collar with a tag. The background shows a grassy field with some trees and bushes. The cow is standing on a dirt ground. The style of the image is a straightforward, clear photograph with no additional elements or effects.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 3/553 条 prompt:
+Prompt: a photo of a bicycle
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A green bicycle with white wheels is positioned on a bed of fallen leaves. The bicycle is leaning against a tree stump. The background features more fallen leaves and several pumpkins of various sizes and colors. The scene is outdoors, likely in a garden or park setting. The style of the image is a straightforward, real-life photograph with a focus on the bicycle and its immediate surroundings.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 4/553 条 prompt:
+Prompt: a photo of a clock
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a colorful donut with chocolate icing and sprinkles. The donut is placed on a white background. The clock in the image is circular with a silver body and a silver knob in the center. The clock face is white with black numbers from 1 to 12. The clock is positioned to the left of the donut. The style of the image is a simple, clear, and straightforward depiction of the objects.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 5/553 条 prompt:
+Prompt: a photo of a carrot
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A green and white checkered cloth is spread out on a wooden surface. On the cloth, there are three carrots with green tops still attached. The carrots are orange with some green tops and remnants of the carrot tops. The carrots are positioned in a row, with the largest carrot on the left, a medium-sized carrot in the middle, and the smallest carrot on the right. The cloth is neatly folded, and the carrots are placed on top of it. The style of the image is a close-up, still-life photograph with a focus on the carrots and the cloth.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 6/553 条 prompt:
+Prompt: a photo of a suitcase
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a suitcase. The suitcase is open, revealing several green bottles and a green straw. The suitcase is placed on a wooden surface outdoors, with grass and trees in the background. The suitcase has a dark exterior with a lighter interior. The green bottles are cylindrical and filled with a liquid. The straw is green and extends from one of the bottles. The scene is bright and sunny, suggesting a daytime setting.
+🖼️ Starting image token generation with CFG...
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 313, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 265, in main
+    visual_img = generate(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 165, in generate
+    outputs = mmgpt.language_model.model(inputs_embeds=inputs_embeds, use_cache=True, past_key_values=outputs.past_key_values if i != 0 else None)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 571, in forward
+    layer_outputs = decoder_layer(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 254, in forward
+    value_states = self.v_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+KeyboardInterrupt

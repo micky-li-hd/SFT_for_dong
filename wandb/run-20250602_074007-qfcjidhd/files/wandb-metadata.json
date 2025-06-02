@@ -1,0 +1,50 @@
+{
+  "os": "Linux-6.8.0-1028-azure-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.0",
+  "startedAt": "2025-06-02T07:40:07.359489Z",
+  "args": [
+    "--prompt_file",
+    "Image-Generation-CoT/geneval/prompts/generation_prompts.txt",
+    "--checkpoint_path",
+    "/home/v-haodongli/mnt/v-haodongli-container_doch/haodongli/janus-SFT/checkpoint-20000/unwrapped_model",
+    "--save_root",
+    "~/mnt/v-haodongli-container_doch/haodongli/eval/geneval"
+  ],
+  "program": "/home/v-haodongli/t2isft/eval/eval.py",
+  "codePath": "eval/eval.py",
+  "git": {
+    "remote": "git@github.com:micky-li-hd/SFT_for_dong.git",
+    "commit": "133a2c57903657ff375cba3c5bd760658f3ca1e9"
+  },
+  "email": "3196859347@qq.com",
+  "root": "/home/v-haodongli/t2isft",
+  "host": "GCRAZGDL1502",
+  "executable": "/home/v-haodongli/miniconda3/envs/janus/bin/python",
+  "codePathLocal": "eval/eval.py",
+  "cpu_count": 24,
+  "cpu_count_logical": 24,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1065418129408",
+      "used": "891058323456"
+    }
+  },
+  "memory": {
+    "total": "232209698816"
+  },
+  "cpu": {
+    "count": 24,
+    "countLogical": 24
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100 80GB PCIe",
+      "memoryTotal": "85899345920",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.9"
+}

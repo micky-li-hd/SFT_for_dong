@@ -1,0 +1,40 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.03s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:47<00:00, 15.96s/it]
+总共 553 条 prompt
+
+🚀 正在处理第 1/553 条 prompt:
+Prompt: a photo of a bench
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a bench. The bench has a curved backrest and is made of wood with a rich, reddish-brown patina. The seat and frame appear weathered and aged, suggesting it has been exposed to the elements for some time. The bench is situated outdoors, with a blurred background of greenery and trees, indicating a park or garden setting. The bench is positioned on a flat area of grass, and there are dried grasses or reeds planted in the ground at the base of the bench. The overall style of the image is natural and rustic, capturing the bench in its environment.
+🖼️ Starting image token generation with CFG...
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 295, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 253, in main
+    generated_text, visual_img_tune = generate_text_then_image_with_cfg(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 125, in generate_text_then_image_with_cfg
+    dec = mmgpt.gen_vision_model.decode_code(
+  File "/home/v-haodongli/Janus/janus/models/vq_model.py", line 507, in decode_code
+    dec = self.decode(quant_b)
+  File "/home/v-haodongli/Janus/janus/models/vq_model.py", line 502, in decode
+    dec = self.decoder(quant)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/Janus/janus/models/vq_model.py", line 204, in forward
+    h = block.res[i_block](h)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/Janus/janus/models/vq_model.py", line 340, in forward
+    h = nonlinearity(h)
+  File "/home/v-haodongli/Janus/janus/models/vq_model.py", line 395, in nonlinearity
+    return x * torch.sigmoid(x)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 576.00 MiB. GPU 0 has a total capacity of 79.25 GiB of which 147.81 MiB is free. Including non-PyTorch memory, this process has 79.10 GiB memory in use. Of the allocated memory 78.21 GiB is allocated by PyTorch, and 402.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

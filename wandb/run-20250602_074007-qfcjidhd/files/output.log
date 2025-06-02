@@ -1,0 +1,75 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.04s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:55<00:00, 18.60s/it]
+总共 553 条 prompt
+
+🚀 正在处理第 1/553 条 prompt:
+Prompt: a photo of a bench
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a bench in a rural setting. The bench is made of wood and has a curved backrest and armrests. It is situated on the left side of the image, with a dirt path leading towards a forested area. The path is bordered by lush green grass and bushes. The background features a dense forest with tall trees, and a small body of water is visible on the right side of the image. The style of the image is a natural, outdoor scene with a focus on the bench and the surrounding landscape.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 2/553 条 prompt:
+Prompt: a photo of a cow
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a cow is shown. The cow has a white face with brown patches. The cow's tongue is sticking out, and its eyes are wide open. The background is plain white, emphasizing the cow. The style of the image is a simple, clear photograph with no additional elements or distractions.
+🖼️ Starting image token generation with CFG...
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 300, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 264, in main
+    visual_img = generate(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 164, in generate
+    outputs = mmgpt.language_model.model(inputs_embeds=inputs_embeds, use_cache=True, past_key_values=outputs.past_key_values if i != 0 else None)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 571, in forward
+    layer_outputs = decoder_layer(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 262, in forward
+    key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/cache_utils.py", line 446, in update
+    self.key_cache[layer_idx] = torch.cat([self.key_cache[layer_idx], key_states], dim=-2)
+KeyboardInterrupt
+Exception ignored in atexit callback:
+Traceback (most recent call last):
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 94, in teardown_atexit
+    conn.teardown(hooks.exit_code)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 226, in teardown
+    self._router.join()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/interface/router.py", line 75, in join
+    self._thread.join()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/threading.py", line 1089, in join
+    self._wait_for_tstate_lock()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/threading.py", line 1105, in _wait_for_tstate_lock
+    elif lock.acquire(block, timeout):
+KeyboardInterrupt:
+Exception ignored in atexit callback: <function shutdown_compile_workers at 0x70c070604f70>
+Traceback (most recent call last):
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/_inductor/async_compile.py", line 113, in shutdown_compile_workers
+    pool.shutdown()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/_inductor/compile_worker/subproc_pool.py", line 239, in shutdown
+    self.process.wait(300)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/subprocess.py", line 1217, in wait
+    self._wait(timeout=sigint_timeout)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/subprocess.py", line 1932, in _wait
+    time.sleep(delay)
+KeyboardInterrupt:

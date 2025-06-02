@@ -1,0 +1,51 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.03s/it]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:55<00:00, 18.62s/it]
+总共 553 条 prompt
+
+🚀 正在处理第 1/553 条 prompt:
+Prompt: a photo of a bench
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a bench is centered in the image. The bench is wooden with a curved backrest and armrests. The bench is placed on a paved area, and there are green plants both in front of and behind the bench. The background includes a building with large windows and a door, as well as a bush. The overall style of the image is a simple, straightforward photograph with a focus on the bench and its immediate surroundings.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 2/553 条 prompt:
+Prompt: a photo of a cow
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a cow stands in a grassy field. The cow is brown with a white underbelly and legs. It has a curved horn. The grass is green and appears to be short. The cow is standing with its legs spread apart. The style of the image is a straightforward, clear photograph with natural lighting.
+🖼️ Starting image token generation with CFG...
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 295, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 264, in main
+    visual_img = generate(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 164, in generate
+    outputs = mmgpt.language_model.model(inputs_embeds=inputs_embeds, use_cache=True, past_key_values=outputs.past_key_values if i != 0 else None)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 571, in forward
+    layer_outputs = decoder_layer(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 274, in forward
+    attn_output, attn_weights = attention_interface(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/integrations/sdpa_attention.py", line 54, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+KeyboardInterrupt
