@@ -1,0 +1,25 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.09s/it]
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:41<00:00, 13.99s/it]
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 313, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 223, in main
+    ).to(torch.bfloat16).cuda().eval()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3654, in cuda
+    return super().cuda(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1065, in cuda
+    return self._apply(lambda t: t.cuda(device))
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  [Previous line repeated 3 more times]
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 942, in _apply
+    param_applied = fn(param)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1065, in <lambda>
+    return self._apply(lambda t: t.cuda(device))
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 86.00 MiB. GPU 0 has a total capacity of 79.25 GiB of which 29.00 MiB is free. Process 880976 has 52.54 GiB memory in use. Including non-PyTorch memory, this process has 26.67 GiB memory in use. Of the allocated memory 26.25 GiB is allocated by PyTorch, and 12.17 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

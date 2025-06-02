@@ -1,4 +1,93 @@
 Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
 You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
 Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.07s/it]
-Loading checkpoint shards:  33%|████████████████████████████████████████                                                                                | 1/3 [00:14<00:28, 14.32s/it]
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:46<00:00, 15.53s/it]
+总共 553 条 prompt
+
+🚀 正在处理第 1/553 条 prompt:
+Prompt: a photo of a bench
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A bench sits in a grassy field. The bench is red with white stripes on the backrest and legs. The grass is green and appears to be short. The bench is positioned in the center of the image, with the field extending outward. The sky is partly cloudy.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 2/553 条 prompt:
+Prompt: a photo of a cow
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A photo of a cow with a black and white spotted coat is the central focus. The cow is standing amidst some greenery, including leaves and plants. The cow is looking directly at the camera. In the background, there are other cows, some with white and black patches, and others with brown and white patches. The setting appears to be an outdoor area with trees and grass visible. The style of the image is a straightforward, clear photograph with natural lighting.
+🖼️ Starting image token generation with CFG...
+
+🚀 正在处理第 3/553 条 prompt:
+Prompt: a photo of a bicycle
+🔍 Starting text generation...
+🖼️ Detected <begin_of_image>, switching to image generation.
+📝 Generated text:  A bicycle is leaning against a white wall. The bicycle has a white frame with a black seat and handlebars. The tires are black and appear to be in motion, suggesting the bicycle is being ridden. The wall is plain white with a blue baseboard at the bottom. The ground is a light gray, possibly concrete. The bicycle is the main focus of the image, and the wall and ground are secondary elements. The style of the image is a straightforward, real-life photograph with no additional artistic effects.
+🖼️ Starting image token generation with CFG...
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 313, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 254, in main
+    generated_text, visual_img_tune = generate_text_then_image_with_cfg(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/v-haodongli/t2isft/eval/eval.py", line 103, in generate_text_then_image_with_cfg
+    outputs = mmgpt.language_model.model(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 571, in forward
+    layer_outputs = decoder_layer(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 257, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 153, in apply_rotary_pos_emb
+    cos = cos.unsqueeze(unsqueeze_dim)
+KeyboardInterrupt
+Exception ignored in atexit callback:
+Traceback (most recent call last):
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 94, in teardown_atexit
+    conn.teardown(hooks.exit_code)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 226, in teardown
+    self._router.join()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/wandb/sdk/interface/router.py", line 75, in join
+    self._thread.join()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/threading.py", line 1089, in join
+    self._wait_for_tstate_lock()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/threading.py", line 1105, in _wait_for_tstate_lock
+    elif lock.acquire(block, timeout):
+KeyboardInterrupt:
+Exception ignored in atexit callback: <bound method TemporaryDirectory.cleanup of <TemporaryDirectory '/tmp/tmpshdd47vswandb-media'>>
+Traceback (most recent call last):
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/tempfile.py", line 846, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/tempfile.py", line 828, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/shutil.py", line 717, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/shutil.py", line 672, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+KeyboardInterrupt:
+Exception ignored in atexit callback: <function matmul_ext_update_autotune_table at 0x743ec0506e60>
+Traceback (most recent call last):
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/transformer/inference/triton/matmul_ext.py", line 480, in matmul_ext_update_autotune_table
+    fp16_matmul._update_autotune_table()
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/transformer/inference/triton/matmul_ext.py", line 457, in _update_autotune_table
+    TritonMatmul._update_autotune_table(__class__.__name__ + "_2d_kernel", __class__._2d_kernel)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/transformer/inference/triton/matmul_ext.py", line 186, in _update_autotune_table
+    cache_manager.put(autotune_table)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/site-packages/deepspeed/ops/transformer/inference/triton/matmul_ext.py", line 105, in put
+    os.replace(self.file_path + ".tmp", self.file_path)
+KeyboardInterrupt:

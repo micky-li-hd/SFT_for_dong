@@ -215,15 +215,15 @@ def main():
     vl_gpt: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(
         model_path,
         trust_remote_code=True
-    ).to("cuda").eval()
+    ).to(torch.bfloat16).cuda().eval()
 
     vl_gpt_tune: MultiModalityCausalLM = AutoModelForCausalLM.from_pretrained(
-        args.checkpoint_path,
+        "/home/v-haodongli/mnt/v-haodongli-container_doch/haodongli/janus-SFT/checkpoint-20000/unwrapped_model",
         trust_remote_code=True
-    ).to("cuda").eval()
+    ).to(torch.bfloat16).cuda().eval()
 
     # 读取所有 prompt
-    with open(args.prompt_file) as fp:
+    with open("Image-Generation-CoT/geneval/prompts/generation_prompts.txt") as fp:
         prompts = [line.strip() for line in fp if line.strip()]
 
     print(f"总共 {len(prompts)} 条 prompt")
@@ -259,7 +259,7 @@ def main():
             image_token_num_per_image=576,
             temperature=1,
             cfg_weight=5.0,
-            parallel_size=4,
+            parallel_size=2,
         )
 
         visual_img = generate(
@@ -269,7 +269,7 @@ def main():
             image_token_num_per_image=576,
             temperature=1,
             cfg_weight=5.0,
-            parallel_size=4,
+            parallel_size=2,
         )
 
         # 保存图像路径或转换为 wandb.Image

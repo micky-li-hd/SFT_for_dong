@@ -20,3 +20,4 @@ config: {'prompt_file': 'Image-Generation-CoT/geneval/prompts/generation_prompts
 2025-06-02 07:57:28,471 INFO    MainThread:879886 [wandb_run.py:_redirect():2490] Wrapping output streams.
 2025-06-02 07:57:28,471 INFO    MainThread:879886 [wandb_run.py:_redirect():2513] Redirects installed.
 2025-06-02 07:57:28,472 INFO    MainThread:879886 [wandb_init.py:init():1150] run started, returning control to user process
+2025-06-02 08:00:31,584 INFO    MsgRouterThr:879886 [mailbox.py:close():129] [no run ID] Closing mailbox, abandoning 1 handles.
