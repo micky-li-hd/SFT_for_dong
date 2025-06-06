@@ -31,6 +31,7 @@ dataset:
         resolution: 256
         pin_memory: True
         persistent_workers: True
+        max_length: 1024
 
     preprocessing:
         max_seq_length: 381 # for text tokens
