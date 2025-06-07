@@ -116,12 +116,12 @@ class DataCollatorForSupervisedDataset:
 
         return dict(
             input_ids=input_ids,
-            labels=labels,
+            label_ids=labels,
             attention_mask=(input_ids != self.tokenizer.pad_token_id),
-            text_ids_mask=text_ids_mask,
-            image_ids_mask=image_ids_mask,
-            label_text_ids_mask=label_text_ids_mask,
-            label_image_ids_mask=label_image_ids_mask,
+            text_id_mask=text_ids_mask,
+            image_id_mask=image_ids_mask,
+            label_text_id_mask=label_text_ids_mask,
+            label_image_id_mask=label_image_ids_mask,
         )
 
 # ======== 主程序入口 ========

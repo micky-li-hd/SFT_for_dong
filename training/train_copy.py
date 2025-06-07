@@ -28,8 +28,9 @@ from training.data_new_copy import DataCollatorForSupervisedDataset
 from torch.utils.data import Dataset, DataLoader
 from training.lr_schedulers import get_scheduler
 from deepspeed.accelerator import get_accelerator
-from datasets import load_dataset
+from datasets import load_dataset, IterableDataset
 import glob
+from torch.utils.data import DistributedSampler
 # import debugpy
 # if int(os.getenv("LOCAL_RANK", "0")) == 3:
 #     try:
@@ -172,20 +173,30 @@ def main():
     #         DATALOADER             #
     #################################
     logger.info("Creating dataloaders and lr_scheduler")
+    total_batch_size_t2i_without_accum = config.training.batch_size * accelerator.num_processes
+    total_batch_size_t2i = (config.training.batch_size * accelerator.num_processes * config.training.gradient_accumulation_steps)
     # 修改后的构建数据集方式
     data_files = glob.glob(os.path.join(config.dataset.params.path, "*.tar"))
-    train_dataset = load_dataset("webdataset", data_files=data_files, split="train", num_proc=8)
+    train_dataset = load_dataset("webdataset", data_files=data_files, split="train",  streaming=True)
+    train_dataset: IterableDataset = train_dataset.shuffle(buffer_size=10000, seed=42, )
+    #数据分片
+    train_dataset = train_dataset.shard(
+    num_shards=accelerator.num_processes,
+    index=accelerator.process_index)
 
     dataloader = DataLoader(
         train_dataset,
         batch_size=config.training.batch_size,
-        collate_fn=DataCollatorForSupervisedDataset(tokenizer=processor.tokenizer, processor=processor, max_length = config.dataset.params.max_length),
+        collate_fn=DataCollatorForSupervisedDataset(tokenizer=processor.tokenizer, processor=processor, max_length=config.dataset.params.max_length),
         num_workers=config.dataset.params.num_workers,
-        pin_memory=True
+        pin_memory=True,
+        drop_last=True,   
     )
-    #计算每个epoch走多少step,手动定义一个epoch用config.experiment.samples_per_epoch条数据
-    batches_per_epoch = len(train_dataset) // config.training.batch_size
-    num_update_steps_per_epoch = math.ceil(batches_per_epoch / config.training.gradient_accumulation_steps)
+    num_batches = math.ceil(config.experiment.max_train_examples / total_batch_size_t2i_without_accum)
+    num_worker_batches = math.ceil(config.experiment.max_train_examples/ (total_batch_size_t2i_without_accum * config.dataset.params.num_workers))
+    num_batches = num_worker_batches * config.dataset.params.num_workers
+    num_samples = num_batches * total_batch_size_t2i_without_accum
+    num_update_steps_per_epoch = math.ceil(num_batches / config.training.gradient_accumulation_steps)
     num_train_epochs = math.ceil(config.training.max_train_steps / num_update_steps_per_epoch)
 
 
@@ -230,21 +241,24 @@ def main():
     end = time.time()
     for epoch in range(first_epoch, num_train_epochs):
         model.train()
-        for batch in dataloader:
+        for batch_idx, batch in enumerate(dataloader):
             input_ids = batch["input_ids"]                # (B, L)
             text_id_mask = batch["text_id_mask"]          # (B, L)
             image_id_mask = batch["image_id_mask"]        # (B, L)
             label_ids = batch["label_ids"]                # (B, L)
             label_text_id_mask = batch["label_text_id_mask"]  # (B, L)
             label_image_id_mask = batch["label_image_id_mask"]  # (B, L)
+            
+            #为了debug加的
+            current_rank = accelerator.process_index
+            local_rank = int(os.getenv("LOCAL_RANK", -1))                                                       
+            if batch_idx == 0:
+                print(f"[Rank: {current_rank} | Local Rank: {local_rank}] First Batch Input IDs Sample:")
+                print(input_ids[0, 100:110])  
 
             data_time_m.update(time.time() - end)
             batch_size, seq_len = input_ids.shape
             # embed_dim = model.language_model.model.embed_tokens.weight.shape[1]
-
-            if global_step == 0 and epoch == 0:
-                logger.info("Input ids: {}".format(input_ids))
-                logger.info("Labels: {}".format(label_ids))
 
             # 获取嵌入
             with torch.no_grad():

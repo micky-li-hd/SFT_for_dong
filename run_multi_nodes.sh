@@ -38,4 +38,4 @@ export NCCL_DEBUG='INFO'
  
 NODE_RANK_PADDED=$(printf "%02d" ${NODE_RANK})
 accelerate launch --num_machines=${AZUREML_NODE_COUNT} --num_processes=${NUM_PROCESS} --machine_rank=${NODE_RANK} --main_process_port=${MASTER_PORT} --main_process_ip=${MASTER_ADDR} --config_file accelerate_config/2_8_GPU_config.yaml \
-    training/train.py config=config/sft.yaml
+    training/train_copy.py config=config/sft.yaml

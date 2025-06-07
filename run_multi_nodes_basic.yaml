@@ -5,7 +5,7 @@ env_defaults:
   WANDB_API_KEY: "932cf1932b038f1aa905e52f1fe208ddb75c403c"
 target:
   service: sing
-  name: msrresrchvc
+  name: msroctobasicvc 
   workspace_name: msramigws
 
 environment:
@@ -39,9 +39,10 @@ storage:
 
 jobs:
 - name: SFT_test
-  sku: ${NODES}x80G${GPUS}-A100
-  sla_tier: Premium
+  sku: ${NODES}x80G${GPUS}-A100-IB-NvLink
+  sla_tier: Basic
   priority: High 
+  process_count_per_node: 1
   submit_args:
     max_run_duration_seconds: 1209600
     env:
@@ -53,7 +54,6 @@ jobs:
   - export AZUREML_NODE_COUNT=$$PAI_TASK_ROLE_TASK_COUNT_worker
   - export NODE_RANK=$$PAI_CURRENT_TASK_ROLE_CURRENT_TASK_INDEX
   - export WANDB_API_KEY="932cf1932b038f1aa905e52f1fe208ddb75c403c"
-  - sleep infinity
   - bash run_multi_nodes.sh
 
 

@@ -1,0 +1,48 @@
+description: amlt job submission
+
+target:
+  service: sing
+  name: GenAI-Shared-UKSouth
+  workspace_name: genai-sra-shared-wu3
+
+environment:
+  image: amlt-sing/acpt-torch2.5.0-py3.10-cuda12.4-ubuntu22.04
+  setup:
+  - pip install numpy pandas matplotlib tqdm
+  - pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --extra-index-url https://download.pytorch.org/whl/cu124  --no-cache-dir
+  - pip install accelerate omegaconf wandb datasets tqdm pillow scikit-learn
+  - pip install --upgrade transformers
+  - pip install attrdict
+  - pip install timm
+  - pip install deepspeed --no-cache-dir
+  - pip install attrdict webdataset
+  - pip install datasets==3.6.0
+  - pip install einops
+
+
+
+code:
+  local_dir: $CONFIG_DIR/
+
+storage:
+  output:
+    storage_account_name: msrapartneritnexp
+    container_name: doch
+    mount_dir: /mnt/blob
+
+jobs:
+- name: SFT_test
+  sku: 2x80G8-A100-IB-NvLink
+  sla_tier: Premium
+  priority: High 
+  mpi: True
+  process_count_per_node: 1
+  identity: managed
+  submit_args:
+      env:
+        DATASET_MOUNT_BLOCK_BASED_CACHE_ENABLED: true
+        _AZUREML_SINGULARITY_JOB_UAI: /subscriptions/103fe10b-22e1-477d-aa81-b7a916e5087d/resourceGroups/msr-collaboration/providers/Microsoft.ManagedIdentity/userAssignedIdentities/genai-phi-msra-collaboration
+  command:
+  - echo $$MASTER_ADDR -- $$MASTER_PORT -- $$OMPI_COMM_WORLD_RANK
+  - export WANDB_API_KEY="932cf1932b038f1aa905e52f1fe208ddb75c403c"
+  - accelerate launch --main_process_ip $$MASTER_ADDR --main_process_port $$MASTER_PORT --machine_rank $$OMPI_COMM_WORLD_RANK --config_file accelerate_config/16_GPU_config.yaml training/train.py config=config/sft.yaml

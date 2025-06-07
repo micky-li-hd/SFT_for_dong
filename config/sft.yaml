@@ -7,7 +7,7 @@ experiment:
     project: "janus-SFT"
     name: "janus-SFT"
     output_dir: "/mnt/v-haodongli/t2isft_checkpoint"
-    max_train_examples: 20000000
+    max_train_examples: 24000000
     max_train_examples_mmu: 40000000
     save_every: 10000
     eval_every: 2500
