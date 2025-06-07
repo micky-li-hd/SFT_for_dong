@@ -25,7 +25,7 @@ model:
 dataset:
     params:
         path: "/mnt/v-haodongli/cot_output_test_train"
-        shuffle_buffer_size: 1000
+        shuffle_buffer_size: 10000
         max_samples: 1000
         num_workers: 8
         resolution: 256
@@ -50,12 +50,13 @@ lr_scheduler:
     scheduler: "cosine"
     params:
         learning_rate: ${optimizer.params.learning_rate}
-        warmup_steps: 1000
+        warmup_steps: 10000
+        num_cycles: 1.0
 
 training:
     gradient_accumulation_steps: 1
     noise_type: "mask"
-    batch_size: 4
+    batch_size: 32
     samples_per_epoch: 10000
     mixed_precision: "bf16"
     enable_tf32: True

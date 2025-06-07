@@ -2,8 +2,8 @@ description: amlt job submission
 
 target:
   service: sing
-  name: GenAI-Shared-UKSouth
-  workspace_name: genai-sra-shared-wu3
+  name: msroctobasicvc 
+  workspace_name: msramigws
 
 environment:
   image: amlt-sing/acpt-torch2.5.0-py3.10-cuda12.4-ubuntu22.04
@@ -27,14 +27,18 @@ code:
 
 storage:
   output:
-    storage_account_name: msrapartneritnexp
-    container_name: doch
-    mount_dir: /mnt/blob
+    storage_account_name: msraiegmultimedia
+    container_name: v-haodongli
+    mount_dir: /mnt/v-haodongli
+  external:
+    storage_account_name: msraiegmultimedia
+    container_name: chol
+    mount_dir: /mnt/shared_data
 
 jobs:
 - name: SFT_test
   sku: 2x80G8-A100-IB-NvLink
-  sla_tier: Premium
+  sla_tier: Basic
   priority: High 
   mpi: True
   process_count_per_node: 1
@@ -42,8 +46,9 @@ jobs:
   submit_args:
       env:
         DATASET_MOUNT_BLOCK_BASED_CACHE_ENABLED: true
-        _AZUREML_SINGULARITY_JOB_UAI: /subscriptions/103fe10b-22e1-477d-aa81-b7a916e5087d/resourceGroups/msr-collaboration/providers/Microsoft.ManagedIdentity/userAssignedIdentities/genai-phi-msra-collaboration
+        _AZUREML_SINGULARITY_JOB_UAI: /subscriptions/622ac093-cd5d-4146-af74-d19d1d59f314/resourcegroups/MSRA_IEG_Multimedia/providers/Microsoft.ManagedIdentity/userAssignedIdentities/msramig3dmanagedidentity
   command:
   - echo $$MASTER_ADDR -- $$MASTER_PORT -- $$OMPI_COMM_WORLD_RANK
   - export WANDB_API_KEY="932cf1932b038f1aa905e52f1fe208ddb75c403c"
+  - sleep infinity
   - accelerate launch --main_process_ip $$MASTER_ADDR --main_process_port $$MASTER_PORT --machine_rank $$OMPI_COMM_WORLD_RANK --config_file accelerate_config/16_GPU_config.yaml training/train.py config=config/sft.yaml

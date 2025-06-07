@@ -86,9 +86,6 @@ class DataCollatorForSupervisedDataset:
             label_text_mask = assistant_mask[1:] & (all_image_ids_mask[1:] == False)
             label_image_mask = assistant_mask[1:] & all_image_ids_mask[1:]
 
-            # 只保留 label 中需要的部分，其他设为 IGNORE_INDEX
-            label_ids[~label_text_mask] = self.IGNORE_INDEX
-
             # 添加进列表
             input_ids_list.append(input_ids)
             labels_list.append(label_ids)

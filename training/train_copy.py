@@ -42,6 +42,7 @@ from torch.utils.data import DistributedSampler
 logger = get_logger(__name__, log_level="INFO")
 
 def main():
+    os.environ['OMPI_COMM_WORLD_LOCAL_RANK'] = os.environ.get('LOCAL_RANK', '0')
     #########################
     # SETUP Accelerator     #
     #########################
@@ -59,6 +60,7 @@ def main():
         log_with="wandb",
         project_dir=config.experiment.logging_dir,
         split_batches=True,
+        dispatch_batches=False,
     )
 
     total_batch_size_per_gpu = config.training.batch_size
@@ -178,7 +180,7 @@ def main():
     # 修改后的构建数据集方式
     data_files = glob.glob(os.path.join(config.dataset.params.path, "*.tar"))
     train_dataset = load_dataset("webdataset", data_files=data_files, split="train",  streaming=True)
-    train_dataset: IterableDataset = train_dataset.shuffle(buffer_size=10000, seed=42, )
+    train_dataset: IterableDataset = train_dataset.shuffle(buffer_size=config.dataset.params.shuffle_buffer_size, seed=config.training.seed, )
     #数据分片
     train_dataset = train_dataset.shard(
     num_shards=accelerator.num_processes,

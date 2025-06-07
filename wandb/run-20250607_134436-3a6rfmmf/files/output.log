@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/v-haodongli/t2isft/training/train_copy.py", line 481, in <module>
+    main()
+  File "/home/v-haodongli/t2isft/training/train_copy.py", line 115, in main
+    os.makedirs(config.experiment.output_dir, exist_ok=True)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/os.py", line 215, in makedirs
+    makedirs(head, exist_ok=exist_ok)
+  File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/os.py", line 225, in makedirs
+    mkdir(name, mode)
+PermissionError: [Errno 13] Permission denied: '/mnt/v-haodongli'
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/v-haodongli/t2isft/training/train_copy.py", line 481, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/v-haodongli/t2isft/training/train_copy.py", line 115, in main
+[rank0]:     os.makedirs(config.experiment.output_dir, exist_ok=True)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/os.py", line 215, in makedirs
+[rank0]:     makedirs(head, exist_ok=exist_ok)
+[rank0]:   File "/home/v-haodongli/miniconda3/envs/janus/lib/python3.10/os.py", line 225, in makedirs
+[rank0]:     mkdir(name, mode)
+[rank0]: PermissionError: [Errno 13] Permission denied: '/mnt/v-haodongli'
