@@ -24,7 +24,7 @@ model:
 
 dataset:
     params:
-        path: "/mnt/v-haodongli/cot_output_test"
+        path: "/mnt/v-haodongli/cot_output_test_clean"
         shuffle_buffer_size: 10000
         max_samples: 1000
         num_workers: 8
@@ -56,7 +56,7 @@ lr_scheduler:
 training:
     gradient_accumulation_steps: 1
     noise_type: "mask"
-    batch_size: 32
+    batch_size: 256
     samples_per_epoch: 10000
     mixed_precision: "bf16"
     enable_tf32: True
